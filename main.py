@@ -1,10 +1,13 @@
 def main():
+    print("--- Begin report of books/frankenstein.txt ---")
     with open("books/frankenstein.txt") as f:
         file_contents = f.read()
         words = file_contents.split()
         total_words = get_num_words(words)
+        print(f'{total_words} words found in the document')
+        print("")
         get_num_chars(words)
-    print(total_words)
+    print("--- End report ---")
     
 
 def get_num_words(words):
@@ -13,6 +16,9 @@ def get_num_words(words):
         count += 1
     return count
 
+def sort_on(d):
+    return d["count"]
+
 def get_num_chars(words):
     total_lowered_chars = {}
     
@@ -20,18 +26,31 @@ def get_num_chars(words):
     for k in words:
         lowered_string = k.lower()
         for char in lowered_string:
-            if char in total_lowered_chars:
-                total_lowered_chars[char] += 1
-            else:
-                total_lowered_chars[char] = 1
+            if char.isalpha():
+                if char in total_lowered_chars:
+                    total_lowered_chars[char] += 1
+                else:
+                    total_lowered_chars[char] = 1
     
     sorted_total_lowered_chars = dict(sorted(total_lowered_chars.items()))
 
+    list_for_report = []
+
+    for k, v in total_lowered_chars.items():
+        new_dictionary = {'char': k, 'count': v}
+        list_for_report.append(new_dictionary)
+        #temp_value = {"character" : key, "value" : value}
+        #list_for_report.append(temp_value)
     
-    print("done")
-    total_lowered_chars.sort(reverse=True, key=sort_on)
-    print(total_lowered_chars)
-    print(sorted_total_lowered_chars)
+    list_for_report.sort(key=sort_on, reverse=True)
+
+    for item in list_for_report:
+        print(f'The "{item["char"]}" was found "{item["count"]}" times')
+
+    #print(list_for_report)
+
+    #print(total_lowered_chars)5
+    #print(sorted_total_lowered_chars)
     #return lowered_string
 
 if __name__ == "__main__":
