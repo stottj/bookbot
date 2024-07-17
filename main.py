@@ -20,8 +20,7 @@ def sort_on(d):
     return d["count"]
 
 def get_num_chars(words):
-    total_lowered_chars = {}
-    
+    total_lowered_chars = {} 
     
     for k in words:
         lowered_string = k.lower()
@@ -32,26 +31,16 @@ def get_num_chars(words):
                 else:
                     total_lowered_chars[char] = 1
     
-    sorted_total_lowered_chars = dict(sorted(total_lowered_chars.items()))
-
     list_for_report = []
 
     for k, v in total_lowered_chars.items():
         new_dictionary = {'char': k, 'count': v}
         list_for_report.append(new_dictionary)
-        #temp_value = {"character" : key, "value" : value}
-        #list_for_report.append(temp_value)
     
     list_for_report.sort(key=sort_on, reverse=True)
 
     for item in list_for_report:
         print(f'The "{item["char"]}" was found "{item["count"]}" times')
-
-    #print(list_for_report)
-
-    #print(total_lowered_chars)5
-    #print(sorted_total_lowered_chars)
-    #return lowered_string
 
 if __name__ == "__main__":
     main()
